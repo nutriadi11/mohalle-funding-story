@@ -1339,3 +1339,96 @@ function Phase1FundingSection() {
 
 
 
+function FundingDonut({
+  items,
+}: {
+  items: { label: string; pct: number; swatch: string }[];
+}) {
+  const size = 280;
+  const cx = size / 2;
+  const cy = size / 2;
+  const r = 110;
+  const stroke = 56;
+  const circumference = 2 * Math.PI * r;
+  let cumulative = 0;
+
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
+      role="img"
+      aria-label="Fund utilisation donut chart for Phase 1"
+      className="max-w-full"
+    >
+      {/* Track */}
+      <circle cx={cx} cy={cy} r={r} fill="none" stroke="hsl(45 20% 88%)" strokeWidth={stroke} />
+      {items.map((item) => {
+        const length = (item.pct / 100) * circumference;
+        const dashArray = `${length} ${circumference - length}`;
+        const dashOffset = circumference * 0.25 - cumulative;
+        cumulative += length;
+
+        // Midpoint of arc, for label
+        const midAngle =
+          (cumulative - length / 2) / circumference * 2 * Math.PI - Math.PI / 2;
+        const labelR = r;
+        const lx = cx + labelR * Math.cos(midAngle);
+        const ly = cy + labelR * Math.sin(midAngle);
+
+        return (
+          <g key={item.label}>
+            <circle
+              cx={cx}
+              cy={cy}
+              r={r}
+              fill="none"
+              stroke={item.swatch}
+              strokeWidth={stroke}
+              strokeDasharray={dashArray}
+              strokeDashoffset={dashOffset}
+              transform={`rotate(-90 ${cx} ${cy})`}
+            />
+            <text
+              x={lx}
+              y={ly}
+              textAnchor="middle"
+              dominantBaseline="middle"
+              fontSize="13"
+              fontWeight="500"
+              fill="hsl(45 30% 96%)"
+              style={{ pointerEvents: "none" }}
+            >
+              {item.pct}%
+            </text>
+          </g>
+        );
+      })}
+
+      {/* Center label */}
+      <text
+        x={cx}
+        y={cy - 6}
+        textAnchor="middle"
+        dominantBaseline="middle"
+        fontSize="32"
+        fontFamily="Cormorant Garamond, Georgia, serif"
+        fontWeight="600"
+        fill="hsl(82 30% 18%)"
+      >
+        ₹50
+      </text>
+      <text
+        x={cx}
+        y={cy + 22}
+        textAnchor="middle"
+        dominantBaseline="middle"
+        fontSize="11"
+        letterSpacing="3"
+        fill="hsl(45 10% 35%)"
+      >
+        LAKHS
+      </text>
+    </svg>
+  );
+}
