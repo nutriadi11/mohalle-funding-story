@@ -989,4 +989,352 @@ function SystemSection() {
   );
 }
 
+const fundingBreakdown = [
+  {
+    label: "Construction & Civil Works",
+    pct: 30,
+    amount: "₹15.00 L",
+    swatch: "hsl(82 30% 22%)",
+    detail: "Hospital structure, foundation, civil works, plumbing, electrical, sanitation and finishing.",
+  },
+  {
+    label: "Medical Equipment",
+    pct: 20,
+    amount: "₹10.00 L",
+    swatch: "hsl(82 22% 35%)",
+    detail: "Surgical tools, anesthesia machines, monitors, OT lights, recovery beds and critical care kit.",
+  },
+  {
+    label: "Diagnostics & Lab Setup",
+    pct: 15,
+    amount: "₹7.50 L",
+    swatch: "hsl(45 20% 38%)",
+    detail: "X-ray, ultrasound, blood analyzers, microscopes and laboratory consumables.",
+  },
+  {
+    label: "Operations (1 Year)",
+    pct: 15,
+    amount: "₹7.50 L",
+    swatch: "hsl(38 25% 55%)",
+    detail: "Veterinarian and paramedic salaries, medicines, utilities and running costs for the first year.",
+  },
+  {
+    label: "Ambulance & Rescue Van",
+    pct: 10,
+    amount: "₹5.00 L",
+    swatch: "hsl(38 30% 65%)",
+    detail: "Equipped mobile rescue vehicle with paramedic kit for citywide emergency response.",
+  },
+  {
+    label: "Administrative & Misc.",
+    pct: 10,
+    amount: "₹5.00 L",
+    swatch: "hsl(45 20% 78%)",
+    detail: "Licenses, software, training, office setup and a small contingency reserve.",
+  },
+];
+
+const keyFacilities = [
+  { title: "OPD & Emergency Unit", text: "Immediate care for all emergencies and critical cases." },
+  { title: "Surgery & OT", text: "State-of-the-art operation theatre and sterile surgical environment." },
+  { title: "Diagnostics & Lab", text: "In-house X-ray, blood tests, ultrasound and laboratory diagnostics." },
+  { title: "Recovery Wards", text: "Post-operative and critical care recovery wards." },
+  { title: "Isolation Units", text: "Separate isolation for infectious diseases (Rabies, Parvo, Distemper)." },
+  { title: "Mobile Rescue Support", text: "Equipped vehicle and paramedic team for emergency rescues." },
+  { title: "Veterinary Accommodation", text: "On-call rooms and facilities for veterinary professionals." },
+];
+
+function Phase1FundingSection() {
+  const [scopeOpen, setScopeOpen] = useState(false);
+  const total = fundingBreakdown.reduce((s, x) => s + x.pct, 0); // 100
+
+  return (
+    <section
+      id="phase-1-funding"
+      className="relative scroll-mt-32 border-t border-border/60 bg-[hsl(45_28%_94%)] px-6 py-20 md:px-12 md:py-28 lg:px-16"
+    >
+      <div className="mx-auto max-w-[1500px]">
+        {/* Header */}
+        <div className="flex flex-col gap-6 border-b border-foreground/15 pb-10 md:flex-row md:items-end md:justify-between">
+          <div className="flex items-start gap-5">
+            <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-md bg-[hsl(82_30%_18%)] text-[hsl(45_30%_95%)] md:h-16 md:w-16">
+              <IndianRupee className="h-6 w-6 md:h-7 md:w-7" strokeWidth={1.5} />
+            </span>
+            <div>
+              <div className="text-[10px] uppercase tracking-[0.32em] text-[hsl(82_30%_28%)]">
+                Phase 1 · Funding Scope
+              </div>
+              <h2 className="mt-2 font-display text-3xl uppercase tracking-tight text-[hsl(82_30%_18%)] md:text-5xl">
+                Financials & Facilities
+              </h2>
+              <div className="mt-2 font-display text-base italic text-[hsl(38_30%_42%)] md:text-lg">
+                Transparent. Accountable. Purpose-Driven.
+              </div>
+            </div>
+          </div>
+          <p className="max-w-sm font-display text-sm italic leading-relaxed text-foreground/80 md:text-right md:text-base">
+            Every rupee builds a future where animals heal, communities grow
+            and compassion becomes a way of life.
+          </p>
+        </div>
+
+        {/* Financials block */}
+        <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
+          <div className="lg:col-span-7">
+            <div className="overflow-hidden rounded-lg border border-foreground/10 bg-background p-2 md:p-4">
+              <img
+                src={phase1Financials.url}
+                alt="Phase 1 fund utilisation — ₹50 Lakhs broken down across construction, medical equipment, diagnostics, operations, ambulance and administrative spend"
+                className="h-auto w-full object-contain"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col justify-between lg:col-span-5">
+            <div>
+              <div className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                Total Funding Required
+              </div>
+              <div className="mt-3 flex items-baseline gap-3">
+                <div className="font-display text-6xl leading-none text-[hsl(82_30%_18%)] md:text-7xl">
+                  ₹50
+                </div>
+                <div className="font-display text-xl text-foreground/70 md:text-2xl">Lakhs</div>
+              </div>
+              <p className="mt-4 max-w-md text-sm leading-relaxed text-foreground/75 md:text-base">
+                The immediate goal for Phase 1 — to construct and operationalise
+                Rourkela&apos;s first fully equipped animal hospital, the
+                healing backbone of the wider Mohalle Mastane system.
+              </p>
+
+              <ul className="mt-8 space-y-3">
+                {fundingBreakdown.slice(0, 3).map((f) => (
+                  <li key={f.label} className="flex items-center gap-3 text-sm">
+                    <span
+                      className="h-3 w-3 shrink-0 rounded-sm"
+                      style={{ backgroundColor: f.swatch }}
+                    />
+                    <span className="flex-1 text-foreground/85">{f.label}</span>
+                    <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+                      {f.pct}%
+                    </span>
+                    <span className="w-16 text-right font-medium tabular-nums text-foreground">
+                      {f.amount}
+                    </span>
+                  </li>
+                ))}
+                <li className="pt-1 text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+                  + {fundingBreakdown.length - 3} more line items
+                </li>
+              </ul>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setScopeOpen(true)}
+              className="group mt-8 inline-flex w-fit items-center gap-3 rounded-full bg-[hsl(82_30%_22%)] px-6 py-3 text-[11px] uppercase tracking-[0.22em] text-[hsl(60_30%_94%)] transition-colors hover:bg-[hsl(82_30%_18%)]"
+            >
+              View Full Funding Scope
+              <ArrowRight
+                className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
+                strokeWidth={2}
+              />
+            </button>
+            <div className="sr-only" aria-hidden="true">{total}% allocated</div>
+          </div>
+        </div>
+
+        {/* Key Facilities */}
+        <div className="mt-20 border-t border-foreground/15 pt-14">
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <div>
+              <div className="text-[10px] uppercase tracking-[0.3em] text-[hsl(82_30%_28%)]">
+                Space Allocation
+              </div>
+              <h3 className="mt-3 font-display text-3xl leading-tight text-foreground md:text-4xl">
+                Key Facilities
+              </h3>
+            </div>
+            <p className="max-w-sm text-sm leading-relaxed text-foreground/70 md:text-right">
+              Seven dedicated zones designed for compassionate, scientific and
+              uninterrupted animal care.
+            </p>
+          </div>
+
+          <div className="mt-10 overflow-hidden rounded-lg border border-foreground/10 bg-background p-2 md:p-4">
+            <img
+              src={phase1KeyFacilities.url}
+              alt="Phase 1 key facilities — OPD, Surgery & OT, Diagnostics, Recovery Wards, Isolation Units, Mobile Rescue Support and Veterinary Accommodation"
+              className="h-auto w-full object-contain"
+              loading="lazy"
+            />
+          </div>
+
+          <ul className="mt-10 grid grid-cols-1 gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+            {keyFacilities.map((f, i) => (
+              <li
+                key={f.title}
+                className="flex items-start gap-4 border-t border-foreground/15 pt-4"
+              >
+                <div className="font-display text-sm tabular-nums text-[hsl(82_30%_28%)]">
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+                <div>
+                  <div className="text-[11px] font-medium uppercase tracking-[0.2em] text-foreground">
+                    {f.title}
+                  </div>
+                  <div className="mt-1.5 text-xs leading-relaxed text-muted-foreground md:text-sm">
+                    {f.text}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Inside the Hospital */}
+        <div className="mt-20 border-t border-foreground/15 pt-14">
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <div>
+              <div className="text-[10px] uppercase tracking-[0.3em] text-[hsl(82_30%_28%)]">
+                A Look Inside
+              </div>
+              <h3 className="mt-3 font-display text-3xl leading-tight text-foreground md:text-4xl">
+                Inside the Hospital
+              </h3>
+            </div>
+            <p className="max-w-sm text-sm leading-relaxed text-foreground/70 md:text-right">
+              Six core units working in concert — from first response and
+              surgery to recovery, isolation and citywide rescue.
+            </p>
+          </div>
+
+          <div className="mt-10 space-y-6">
+            <div className="overflow-hidden rounded-lg border border-foreground/10 bg-background p-2 md:p-4">
+              <img
+                src={phase1Inside1.url}
+                alt="Inside the hospital, part one — OPD & Emergency Unit, Surgery & OT, and Diagnostics & Lab"
+                className="h-auto w-full object-contain"
+                loading="lazy"
+              />
+            </div>
+            <div className="overflow-hidden rounded-lg border border-foreground/10 bg-background p-2 md:p-4">
+              <img
+                src={phase1Inside2.url}
+                alt="Inside the hospital, part two — Recovery Wards, Isolation Units, and Mobile Rescue Support"
+                className="h-auto w-full object-contain"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Full Funding Scope sheet */}
+      <Sheet open={scopeOpen} onOpenChange={setScopeOpen}>
+        <SheetContent
+          side="bottom"
+          className="max-h-[92vh] overflow-y-auto rounded-t-2xl border-foreground/15 bg-background p-0"
+        >
+          <div className="mx-auto max-w-4xl px-6 py-8 md:px-10 md:py-10">
+            <SheetHeader className="space-y-3 text-left">
+              <div className="text-[10px] uppercase tracking-[0.3em] text-[hsl(82_30%_28%)]">
+                Phase 1 · Full Funding Scope
+              </div>
+              <SheetTitle className="font-display text-3xl leading-tight text-foreground md:text-4xl">
+                ₹50 Lakhs · Line-by-Line Allocation
+              </SheetTitle>
+              <SheetDescription className="text-sm leading-relaxed text-foreground/75">
+                A transparent breakdown of how every rupee is allocated to
+                build, equip and operate Rourkela&apos;s first fully equipped
+                animal hospital.
+              </SheetDescription>
+            </SheetHeader>
+
+            <div className="mt-8 overflow-hidden rounded-xl border border-foreground/15">
+              <div className="grid grid-cols-12 gap-4 border-b border-foreground/15 bg-[hsl(82_30%_22%)]/5 px-5 py-3 text-[10px] uppercase tracking-[0.22em] text-[hsl(82_30%_22%)]">
+                <div className="col-span-6">Line Item</div>
+                <div className="col-span-2 text-right">Share</div>
+                <div className="col-span-4 text-right">Amount</div>
+              </div>
+              <ul>
+                {fundingBreakdown.map((f) => (
+                  <li
+                    key={f.label}
+                    className="grid grid-cols-12 items-start gap-4 border-b border-foreground/10 px-5 py-5 last:border-b-0"
+                  >
+                    <div className="col-span-12 md:col-span-6">
+                      <div className="flex items-center gap-3">
+                        <span
+                          className="h-3 w-3 shrink-0 rounded-sm"
+                          style={{ backgroundColor: f.swatch }}
+                        />
+                        <div className="text-sm font-medium uppercase tracking-[0.12em] text-foreground">
+                          {f.label}
+                        </div>
+                      </div>
+                      <p className="mt-2 pl-6 text-xs leading-relaxed text-foreground/70 md:text-sm">
+                        {f.detail}
+                      </p>
+                    </div>
+                    <div className="col-span-6 text-left text-xs uppercase tracking-[0.18em] text-muted-foreground md:col-span-2 md:text-right">
+                      {f.pct}%
+                    </div>
+                    <div className="col-span-6 text-right font-display text-lg tabular-nums text-foreground md:col-span-4 md:text-xl">
+                      {f.amount}
+                    </div>
+                  </li>
+                ))}
+                <li className="grid grid-cols-12 items-center gap-4 bg-[hsl(82_30%_22%)] px-5 py-4 text-[hsl(60_30%_94%)]">
+                  <div className="col-span-6 text-[11px] uppercase tracking-[0.22em]">
+                    Total Funding Required
+                  </div>
+                  <div className="col-span-2 text-right text-[11px] uppercase tracking-[0.22em]">
+                    100%
+                  </div>
+                  <div className="col-span-4 text-right font-display text-2xl">
+                    ₹50.00 L
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+              <div className="rounded-xl border border-foreground/15 bg-[hsl(82_30%_22%)]/5 p-5">
+                <div className="text-[10px] uppercase tracking-[0.28em] text-[hsl(82_30%_28%)]">
+                  Timeline
+                </div>
+                <div className="mt-2 font-display text-xl text-foreground">12 Months</div>
+                <p className="mt-1 text-xs leading-relaxed text-foreground/70">
+                  Construction, equipping and first year of full operations.
+                </p>
+              </div>
+              <div className="rounded-xl border border-foreground/15 bg-[hsl(82_30%_22%)]/5 p-5">
+                <div className="text-[10px] uppercase tracking-[0.28em] text-[hsl(82_30%_28%)]">
+                  Capacity
+                </div>
+                <div className="mt-2 font-display text-xl text-foreground">7 Facility Zones</div>
+                <p className="mt-1 text-xs leading-relaxed text-foreground/70">
+                  OPD, OT, Diagnostics, Recovery, Isolation, Rescue and Vet Stay.
+                </p>
+              </div>
+              <div className="rounded-xl border border-foreground/15 bg-[hsl(82_30%_22%)]/5 p-5">
+                <div className="text-[10px] uppercase tracking-[0.28em] text-[hsl(82_30%_28%)]">
+                  Impact
+                </div>
+                <div className="mt-2 font-display text-xl text-foreground">Citywide</div>
+                <p className="mt-1 text-xs leading-relaxed text-foreground/70">
+                  The medical backbone for a decentralised care network across Rourkela.
+                </p>
+              </div>
+            </div>
+          </div>
+        </SheetContent>
+      </Sheet>
+    </section>
+  );
+}
+
+
 
