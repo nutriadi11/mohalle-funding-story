@@ -1078,72 +1078,73 @@ function Phase1FundingSection() {
           </p>
         </div>
 
-        {/* Financials block */}
-        <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-7">
-            <div className="overflow-hidden rounded-lg border border-foreground/10 bg-background p-2 md:p-4">
-              <img
-                src={phase1Financials.url}
-                alt="Phase 1 fund utilisation — ₹50 Lakhs broken down across construction, medical equipment, diagnostics, operations, ambulance and administrative spend"
-                className="h-auto w-full object-contain"
-                loading="lazy"
-              />
-            </div>
+        {/* Financials block — Fund Utilisation card */}
+        <div className="mt-12 overflow-hidden rounded-2xl border border-foreground/15 bg-[hsl(45_30%_96%)] p-6 md:p-10">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[hsl(82_30%_18%)]">
+            Fund Utilisation (Phase 1)
           </div>
 
-          <div className="flex flex-col justify-between lg:col-span-5">
-            <div>
-              <div className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-                Total Funding Required
-              </div>
-              <div className="mt-3 flex items-baseline gap-3">
-                <div className="font-display text-6xl leading-none text-[hsl(82_30%_18%)] md:text-7xl">
-                  ₹50
-                </div>
-                <div className="font-display text-xl text-foreground/70 md:text-2xl">Lakhs</div>
-              </div>
-              <p className="mt-4 max-w-md text-sm leading-relaxed text-foreground/75 md:text-base">
-                The immediate goal for Phase 1 — to construct and operationalise
-                Rourkela&apos;s first fully equipped animal hospital, the
-                healing backbone of the wider Mohalle Mastane system.
-              </p>
-
-              <ul className="mt-8 space-y-3">
-                {fundingBreakdown.slice(0, 3).map((f) => (
-                  <li key={f.label} className="flex items-center gap-3 text-sm">
-                    <span
-                      className="h-3 w-3 shrink-0 rounded-sm"
-                      style={{ backgroundColor: f.swatch }}
-                    />
-                    <span className="flex-1 text-foreground/85">{f.label}</span>
-                    <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                      {f.pct}%
-                    </span>
-                    <span className="w-16 text-right font-medium tabular-nums text-foreground">
-                      {f.amount}
-                    </span>
-                  </li>
-                ))}
-                <li className="pt-1 text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-                  + {fundingBreakdown.length - 3} more line items
-                </li>
-              </ul>
+          <div className="mt-8 grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-12">
+            {/* Donut */}
+            <div className="flex justify-center md:justify-start">
+              <FundingDonut items={fundingBreakdown} />
             </div>
 
-            <button
-              type="button"
-              onClick={() => setScopeOpen(true)}
-              className="group mt-8 inline-flex w-fit items-center gap-3 rounded-full bg-[hsl(82_30%_22%)] px-6 py-3 text-[11px] uppercase tracking-[0.22em] text-[hsl(60_30%_94%)] transition-colors hover:bg-[hsl(82_30%_18%)]"
-            >
-              View Full Funding Scope
-              <ArrowRight
-                className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
-                strokeWidth={2}
-              />
-            </button>
-            <div className="sr-only" aria-hidden="true">{total}% allocated</div>
+            {/* Legend */}
+            <ul className="space-y-4">
+              {fundingBreakdown.map((f) => (
+                <li key={f.label} className="flex items-start gap-3">
+                  <span
+                    className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full"
+                    style={{ backgroundColor: f.swatch }}
+                  />
+                  <div className="flex-1">
+                    <div className="text-sm text-foreground md:text-[15px]">
+                      {f.label}
+                    </div>
+                    <div className="text-xs text-muted-foreground">({f.pct}%)</div>
+                  </div>
+                  <div className="whitespace-nowrap font-medium tabular-nums text-foreground md:text-[15px]">
+                    {f.amount}
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
+
+        {/* Total + CTA strip */}
+        <div className="mt-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+              Total Funding Required
+            </div>
+            <div className="mt-2 flex items-baseline gap-3">
+              <div className="font-display text-5xl leading-none text-[hsl(82_30%_18%)] md:text-6xl">
+                ₹50
+              </div>
+              <div className="font-display text-lg text-foreground/70 md:text-xl">Lakhs</div>
+            </div>
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-foreground/75 md:text-base">
+              The immediate goal for Phase 1 — to construct and operationalise
+              Rourkela&apos;s first fully equipped animal hospital, the
+              healing backbone of the wider Mohalle Mastane system.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setScopeOpen(true)}
+            className="group inline-flex w-fit items-center gap-3 rounded-full bg-[hsl(82_30%_22%)] px-6 py-3 text-[11px] uppercase tracking-[0.22em] text-[hsl(60_30%_94%)] transition-colors hover:bg-[hsl(82_30%_18%)]"
+          >
+            View Full Funding Scope
+            <ArrowRight
+              className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
+              strokeWidth={2}
+            />
+          </button>
+        </div>
+        <div className="sr-only" aria-hidden="true">{total}% allocated</div>
 
         {/* Key Facilities */}
         <div className="mt-20 border-t border-foreground/15 pt-14">
